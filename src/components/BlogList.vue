@@ -1,42 +1,45 @@
 <template>
   <div class="list-wrap">
-    <ul>
+
+    <TransitionGroup name="list" tag="ul">
+    <!-- <ul> -->
         <li v-for="(item, index) in memodata" v-bind:key="index" class="shadow"> 
           
           <i class="fas fa-check-circle check-bt" @click="updateMemo(item, index)" :class="{memoComplete:item.complete}"></i>
           
           <span :class="{memoCompleteTxt:item.complete}"> {{item.memotitle}} </span>
-        
+          
           <div class="info">
-            <span class="icon" :style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>
+            <span class="icon" :style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>            
             <span class="date">{{item.memodate}}</span>
             <span class="remove-bt" @click="removeMemo(item.id, index)">
               <i class="fas fa-trash"></i>
             </span>
           </div>
 
+
         </li>  
-    </ul>
+    <!-- </ul> -->
+    </TransitionGroup>
 
   </div>
 </template>
 
 <script>
 
-export default {
-
-  props:['memodata'],
-  
+export default {  
+  props: ['memodata'],
   setup(props, context) {
+
     const removeMemo = (item, index) => {
       context.emit('removeitem', item, index);
     }
 
-    const updateMemo = (item, index) => {
-      context.emit("updateitem",item, index);
+    const updateMemo = (item, index) => {      
+      context.emit("updateitem", item, index);
     }
 
-    return {      
+    return {            
       removeMemo,
       updateMemo
     }
@@ -55,10 +58,10 @@ export default {
     border-radius: 5px;
     padding: 0 20px;
   }
-  .info{
+
+  .info {
     margin-left: auto;
   }
-
   .icon {
     display: inline-block;
     width: 40px;
@@ -66,17 +69,14 @@ export default {
     margin-right: 10px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;  
   }
-
   .date {
-
   }
   .remove-bt {
     cursor: pointer;
     margin-left: 10px;
     color: hotpink;
-
   }
 
   .check-bt {
@@ -94,5 +94,14 @@ export default {
     color: #b3adad;
     text-decoration: line-through;
   }
-
+  /* 애니메이션 */
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.5s ease;
+  }
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
 </style>

@@ -9,13 +9,11 @@
 
 <script>
 export default {
-  setup (props, context) {
-    
+  setup(props, context) {
     const closeIntro = () => {
       context.emit('closeintro');
     }
-    
-    return{
+    return {
       closeIntro
     }
   }
@@ -23,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-  .intro-wrap{
+  .intro-wrap {
     position: fixed;
     left: 0;
     top: 0;
@@ -34,4 +32,5 @@ export default {
     text-align: center;
     cursor: pointer;
   }
+
 </style>
